@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Class\ClassController;
 use App\Http\Controllers\Subject\SubjectController;
 use App\Http\Controllers\Attendance\AttendanceController;
@@ -18,7 +19,7 @@ use App\Http\Controllers\Attendance\AttendanceController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth/login');
 });
 
 Route::get('/dashboard', function () {
@@ -32,7 +33,10 @@ Route::middleware('auth')->group(function () {
 
 
     // Role-based routes
-    Route::middleware('role:super_admin,admin,teacher')->group(function () {
+    Route::middleware('role:admin,teacher')->group(function () {
+
+        Route::resource('users', UserController::class);
+        
         // Subject management routes
         Route::resource('subjects', SubjectController::class);
 
