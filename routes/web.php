@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Class\ClassController;
 use App\Http\Controllers\Subject\SubjectController;
+use App\Http\Controllers\Students\StudentsController;
 use App\Http\Controllers\Attendance\AttendanceController;
 
 /*
@@ -42,18 +43,24 @@ Route::middleware('auth')->group(function () {
 
         // Class management routes
         Route::resource('classes', ClassController::class);
+
+        Route::resource('students', StudentsController::class);
+
     });
 
-    Route::middleware('role:teacher,student')->group(function () {
+    Route::middleware('role:admin,teacher,student')->group(function () {
         // Attendance management routes
         Route::get('attendance', [AttendanceController::class, 'index'])->name('attendance.index');
         Route::post('attendance/record', [AttendanceController::class, 'record'])->name('attendance.record');
+        
+        // Route::get('classes/scan/{data}', [ClassController::class, 'scanQrCode'])->name('classes.scan');
     });
-
-
+    
+    
 });
 
 
-
+// Public route for scanning QR code
+Route::get('classes/scan/{data}', [ClassController::class, 'scanQrCode'])->name('classes.scan');
 
 require __DIR__.'/auth.php';

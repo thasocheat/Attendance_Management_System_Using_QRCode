@@ -31,6 +31,11 @@ class User extends Authenticatable
         return $this->hasMany(ClassModel::class, 'teacher_id');
     }
 
+    public function qrClasses()
+    {
+        return $this->belongsToMany(ClassModel::class, 'student_classes', 'student_id', 'class_id');
+    }
+
     public function studentClasses()
     {
         return $this->hasMany(StudentClass::class, 'student_id');
@@ -39,6 +44,11 @@ class User extends Authenticatable
     public function userDetails()
     {
         return $this->hasOne(UserDetail::class);
+    }
+
+    public function isAdmin()
+    {
+        return $this->role === 'admin'; // Assuming you have a 'role' column in your users table
     }
 
     /**

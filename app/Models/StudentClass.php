@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class StudentClass extends Model
 {
@@ -15,7 +16,7 @@ class StudentClass extends Model
 
     public function class()
     {
-        return $this->belongsTo(ClassModel::class);
+        return $this->belongsTo(ClassModel::class, 'class_id');
     }
 
     public function student()
@@ -26,5 +27,30 @@ class StudentClass extends Model
     public function attendance()
     {
         return $this->hasMany(Attendance::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'student_id');
+    }
+
+
+    /**
+     * Create attendance records for the student.
+     */
+    public function createAttendanceRecords(): void
+    {
+        $startDate = Carbon::parse($this->enrollment_date);
+        $endDate = Carbon::now();
+
+        // Create attendance records for each day from enrollment date until now
+        for ($date = $startDate; $date->lte($endDate); $date->addDay()) {
+            Attendance::create([
+                'student_class_id' => $this->id,
+                'date' => $date,
+                'status' => 'absent', // Set default status as absent
+                // Add any other required fields here
+            ]);
+        }
     }
 }

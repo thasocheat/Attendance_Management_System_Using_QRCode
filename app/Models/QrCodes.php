@@ -5,12 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class QRCode extends Model
+class QrCode extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'class_id', 'qr_code', 'generated_at', 'expiry_time'
+        'class_id', 'qr_code', 'expiry_time'
+    ];
+
+    protected $dates = [
+        'expiry_time',
     ];
 
     public function class()

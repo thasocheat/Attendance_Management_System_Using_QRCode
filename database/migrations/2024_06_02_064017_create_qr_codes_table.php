@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('qr_codes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('class_id')->constrained('classes');
+            $table->foreignId('class_id');
             $table->string('qr_code');
             $table->timestamp('generated_at')->useCurrent();
             $table->timestamp('expiry_time');

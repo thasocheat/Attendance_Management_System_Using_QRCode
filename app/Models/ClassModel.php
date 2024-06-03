@@ -9,13 +9,15 @@ class ClassModel extends Model
 {
     use HasFactory;
 
+    protected $table = 'classes';
+
     protected $fillable = [
         'subject_id', 'teacher_id', 'class_name', 'class_code'
     ];
 
     public function subject()
     {
-        return $this->belongsTo(Subject::class);
+        return $this->belongsTo(Subject::class, 'subject_id');
     }
 
     public function teacher()
@@ -25,11 +27,16 @@ class ClassModel extends Model
 
     public function studentsClasses()
     {
-        return $this->hasMany(StudentClass::class);
+        return $this->hasMany(StudentClass::class, 'class_id');
     }
 
     public function qrCodes()
     {
-        return $this->hasMany(QRCode::class);
+        return $this->hasMany(QrCodeModel::class, 'class_id');
+    }
+
+    public function students()
+    {
+        return $this->belongsToMany(User::class, 'student_classes', 'class_id', 'student_id');
     }
 }

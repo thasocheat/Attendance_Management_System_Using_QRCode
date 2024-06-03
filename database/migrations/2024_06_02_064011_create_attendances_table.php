@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('attendances', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('student_class_id')->constrained('student_classes');
+            $table->foreignId('student_class_id');
             $table->date('date');
             $table->enum('status', ['present', 'absent', 'late']);
-            $table->string('scanned_qr_code');
+            $table->string('scanned_qr_code')->nullable();
             $table->timestamps();
         });
     }
