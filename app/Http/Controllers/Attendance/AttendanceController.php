@@ -41,7 +41,8 @@ class AttendanceController extends Controller
         }
 
         // Get the filtered attendance records
-        $attendances = $attendanceQuery->with(['studentClass.student', 'studentClass.class.teacher', 'studentClass.class.subject'])->get();
+        // $attendances = $attendanceQuery->with(['studentClass.student', 'studentClass.class.teacher', 'studentClass.class.subject'])->get();
+        $attendances = $attendanceQuery->with(['studentClass.student', 'studentClass.class.teacher', 'studentClass.class.subject'])->paginate(3);
 
         // Return the view with the filtered data
         return view('attendances.index', compact('attendances', 'classes', 'teachers', 'subjects'));

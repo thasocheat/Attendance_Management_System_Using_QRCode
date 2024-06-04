@@ -17,7 +17,8 @@ class StudentsController extends Controller
     public function index()
     {
         // Get all students with their attendance records
-        $students = StudentClass::with('attendance', 'user')->get();
+        // $students = StudentClass::with('attendance', 'user')->get();
+        $students = StudentClass::with('attendance', 'user')->paginate(3);
 
         // Return the view with the students data
         return view('students.index', compact('students'));

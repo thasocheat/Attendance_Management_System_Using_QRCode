@@ -14,18 +14,25 @@
                 <div class="mb-5">
                     <form method="POST" action="{{ route('subjects.store') }}">
                         @csrf
-                        <div class="mb-4">
-                            <label for="name" class="block text-sm font-medium text-gray-700">Subject Name</label>
-                            <input type="text" name="name" id="name" placeholder="Enter subject name..." class="form-input mt-1 block w-full" required>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div class="mb-4">
+                                <label for="name" class="block text-sm font-medium text-gray-700">Subject Name</label>
+                                <input type="text" name="name" id="name" placeholder="Enter subject name..." class="form-input mt-1 block w-full" required>
+                            </div>
+                            <div class="mb-4">
+                                <label for="code" class="block text-sm font-medium text-gray-700">Subject Code</label>
+                                <input type="text" name="code" id="code" placeholder="Enter subject code..." class="form-input mt-1 block w-full" required>
+                            </div>
                         </div>
-                        <div class="mb-4">
-                            <label for="code" class="block text-sm font-medium text-gray-700">Subject Code</label>
-                            <input type="text" name="code" id="code" placeholder="Enter subject code..." class="form-input mt-1 block w-full" required>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div class="mb-4">
+                                <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+                                <textarea name="description" id="description" placeholder="Enter subject description..." class="form-input mt-1 block w-full"></textarea>
+                            </div>
                         </div>
-                        <div class="mb-4">
-                            <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
-                            <textarea name="description" id="description" placeholder="Enter subject description..." class="form-input mt-1 block w-full"></textarea>
-                        </div>
+                       
+                        
                         <button type="submit" class="btn btn-primary mt-6">Submit</button>
                     </form>
                 </div>

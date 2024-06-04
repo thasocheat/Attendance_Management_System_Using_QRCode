@@ -21,7 +21,8 @@ class ClassController extends Controller
      */
     public function index()
     {
-        $classes = ClassModel::with('qrCodes')->get();
+        // $classes = ClassModel::with('qrCodes')->get();
+        $classes = ClassModel::with('qrCodes')->paginate(3);
         return view('classes.index', compact('classes'));
     }
 
@@ -149,24 +150,25 @@ class ClassController extends Controller
         $studentClass = $class->studentsClasses->where('student_id', $user->id)->first();
 
         if ($studentClass) {
-            // Update attendance record for the student
-            $attendance = Attendance::firstOrCreate([
-                'student_class_id' => $studentClass->id,
-                'date' => now()->toDateString(),
-            ], [
-                'status' => 'absent',
-            ]);
+            // Retrieve or create attendance record for the student
+            $attendance = Attendance::updateOrCreate(
+                [
+                    'student_class_id' => $studentClass->id,
+                    'date' => now()->toDateString(),
+                ],
+                [
+                    'status' => 'present',
+                    'scanned_qr_code' => $data
+                ]
+            );
 
-            $attendance->status = 'present';
-            $attendance->scanned_qr_code = $data; // Save the scanned QR code data
-            $attendance->save();
-
-            // return redirect()->route('attendance')->with('success', 'Your attendance has been marked as present.');
+            return redirect()->route('attendance.index')->with('success', 'Your attendance has been marked as present.');
         }
 
         // If user is not a student in the class, show class information
         return view('classes.info', compact('class'));
     }
+
 
 
 
