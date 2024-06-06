@@ -44,9 +44,10 @@ class SubjectController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $subject = Subject::findOrFail($id);
+        return view('subject.show', compact('subject'));
     }
 
     /**

@@ -20,6 +20,11 @@ class ClassModel extends Model
         return $this->belongsTo(Subject::class, 'subject_id');
     }
 
+    public function subjects()
+    {
+        return $this->hasMany(Subject::class, 'class_id');
+    }
+
     public function teacher()
     {
         return $this->belongsTo(User::class, 'teacher_id');

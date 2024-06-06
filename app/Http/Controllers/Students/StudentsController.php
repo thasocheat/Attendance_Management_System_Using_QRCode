@@ -68,10 +68,16 @@ class StudentsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        // Retrieve the student with their class, user, and attendance details
+        $student = StudentClass::with(['class', 'user.userDetails', 'attendance'])->findOrFail($id);
+
+        // Return the view with the student data
+        return view('students.show', compact('student'));
     }
+
+
 
     /**
      * Show the form for editing the specified resource.

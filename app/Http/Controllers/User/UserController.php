@@ -76,10 +76,12 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $user = User::with('userDetails')->findOrFail($id);
+        return view('users.show', compact('user'));
     }
+
 
     /**
      * Show the form for editing the specified resource.

@@ -23,6 +23,7 @@ class StudentClass extends Model
     {
         return $this->belongsTo(User::class, 'student_id');
     }
+    
 
     public function attendance()
     {
@@ -32,6 +33,11 @@ class StudentClass extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'student_id');
+    }
+
+    public function subjects()
+    {
+        return $this->belongsToMany(Subject::class, 'student_classes', 'student_class_id', 'class_id');
     }
 
 

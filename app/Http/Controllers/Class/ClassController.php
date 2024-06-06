@@ -58,10 +58,16 @@ class ClassController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        // Retrieve the class with its related subjects, teacher, students, and QR codes
+        $class = ClassModel::with(['subject', 'teacher', 'studentsClasses.user', 'qrCodes'])->findOrFail($id);
+
+        // Return the view with the class data
+        return view('classes.show', compact('class'));
     }
+
+
 
     /**
      * Show the form for editing the specified resource.

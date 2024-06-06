@@ -50,7 +50,7 @@
                                         <td>
                                             <div class="flex gap-4 items-center">
                                                 <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning">Edit</a>
-                                                <a href="#" class="btn btn-info">View</a>
+                                                <a href="{{ route('users.show', $user->id) }}" class="btn btn-info">View</a>
                                                 <form action="{{ route('users.destroy', $user->id) }}" method="POST" class="delete-form d-inline">
                                                     @csrf
                                                     @method('DELETE')
